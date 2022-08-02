@@ -7,3 +7,8 @@ node_modules
 cdk.out
 
 .env
+auth_config.json
+certificate.crt
+
+node_modules
+**/node_modules/*
