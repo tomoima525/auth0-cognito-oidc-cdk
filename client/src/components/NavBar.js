@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Credentials } from "@aws-amplify/core";
+import { Auth } from "@aws-amplify/auth";
 
 import {
   Collapse,
@@ -20,6 +22,8 @@ import {
 
 import { useAuth0 } from "@auth0/auth0-react";
 
+const provider = process.env.REACT_APP_OPENID_PROVIDER;
+console.log({ provider });
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const {
@@ -27,7 +31,26 @@ const NavBar = () => {
     isAuthenticated,
     loginWithRedirect,
     logout,
+    getIdTokenClaims,
   } = useAuth0();
+  useEffect(() => {
+    const fetchAccessToken = async () => {
+      const idtoken = await getIdTokenClaims();
+      await Credentials.set(
+				{ provider, token: idtoken.__raw, user: { name: idtoken.email }, expires_at: 3600 * 1000 + new Date().getTime() },
+				'federation'
+			);
+			const currentUser = await Auth.currentAuthenticatedUser();
+			console.log(
+				'signIn',
+				currentUser
+			);
+    }
+    if (isAuthenticated) {
+      fetchAccessToken();
+    }
+
+  }, [isAuthenticated])
   const toggle = () => setIsOpen(!isOpen);
 
   const logoutWithRedirect = () =>

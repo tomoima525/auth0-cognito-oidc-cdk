@@ -1,7 +1,7 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
-
+import { Amplify } from "aws-amplify";
 import Loading from "./components/Loading";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -17,6 +17,25 @@ import "./App.css";
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
 initFontAwesome();
+
+const identityPoolId = process.env.REACT_APP_IDENTITY_POOL_ID
+console.log({ identityPoolId });
+
+Amplify.configure({
+  aws_project_region: 'us-west-2',
+  Auth: {
+    identityPoolId,
+    region: "us-west-2",
+  },
+  // API: {
+  //   endpoints: [
+  //     {
+  //       name: 'Auth API',
+  //       endpoint: authEndoint,
+  //     },
+  //   ],
+  // },
+});
 
 const App = () => {
   const { isLoading, error } = useAuth0();
