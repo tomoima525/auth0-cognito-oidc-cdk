@@ -3,6 +3,11 @@ This repository showcases Cognito Authentication using Auth0 as OpenID Connect P
 - Cognito Identity Pool is used for authorizing access to IAM role based protected API
 - Client uses amplify-js to authenticate client(passing Auth0 credentials to Cognito) and access protected API. If you prefer other options see [this](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html)
 
+
+https://user-images.githubusercontent.com/6277118/182666081-5d1d8a98-af09-4ef4-b93d-dccf26948901.mov
+
+
+
 # Backend
 
 - Setup Auth0 account
