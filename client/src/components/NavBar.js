@@ -22,8 +22,10 @@ import {
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-const provider = process.env.REACT_APP_OPENID_PROVIDER;
-console.log({ provider });
+import { getConfig } from '../config';
+
+const { openidProvider } = getConfig();
+console.log({ openidProvider });
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const {
@@ -37,7 +39,7 @@ const NavBar = () => {
     const fetchAccessToken = async () => {
       const idtoken = await getIdTokenClaims();
       await Credentials.set(
-				{ provider, token: idtoken.__raw, user: { name: idtoken.email }, expires_at: 3600 * 1000 + new Date().getTime() },
+				{ provider: openidProvider, token: idtoken.__raw, user: { name: idtoken.email }, expires_at: 3600 * 1000 + new Date().getTime() },
 				'federation'
 			);
 			const currentUser = await Auth.currentAuthenticatedUser();

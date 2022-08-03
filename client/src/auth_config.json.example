@@ -1,5 +1,5 @@
 {
   "domain": "{DOMAIN}",
   "clientId": "{CLIENT_ID}",
-  "audience": "{API_IDENTIFIER}"
+  "appOrigin": "http://localhost:3000"
 }

@@ -14,11 +14,13 @@ import history from "./utils/history";
 // styles
 import "./App.css";
 
+import { getConfig } from "./config";
+
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
 initFontAwesome();
 
-const identityPoolId = process.env.REACT_APP_IDENTITY_POOL_ID
+const { authEndpoint, identityPoolId } = getConfig();
 console.log({ identityPoolId });
 
 Amplify.configure({
@@ -27,14 +29,14 @@ Amplify.configure({
     identityPoolId,
     region: "us-west-2",
   },
-  // API: {
-  //   endpoints: [
-  //     {
-  //       name: 'Auth API',
-  //       endpoint: authEndoint,
-  //     },
-  //   ],
-  // },
+  API: {
+    endpoints: [
+      {
+        name: 'Auth0API',
+        endpoint: authEndpoint,
+      },
+    ],
+  },
 });
 
 const App = () => {
