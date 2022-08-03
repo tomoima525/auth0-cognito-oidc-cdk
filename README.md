@@ -1,91 +1,38 @@
-# CDK lambda development template
+This repository showcases Cognito Authentication using Auth0 as OpenID Connect Provider. Built with CDK
 
-This is a CDK template to develop lambda functions in your isolated environment
+- Cognito Identity Pool is used for authorizing access to IAM role based protected API
+- Client uses amplify-js to authenticate client(passing Auth0 credentials to Cognito) and access protected API. If you prefer other options see [this](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html)
 
-# Why we need this?
+# Backend
 
-When you are building a lambda function using CDK in a team, your functions get overriden by other developers functions when they deploy. By having isolated CDK environment which imports external resources (e.g. DynamoDB, S3), we can safely develop our lambda functions. Once you confirmed that your function is working properly in your environment, you can copy your code to your base CDK project.
+- Setup Auth0 account
+- Generate thumbprint from your identity provider (https://your_account.auth0.com)
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/6277118/179318780-e5110421-f945-40fa-acdc-514b3945d32c.png" width=800px />
-</p>
+  - See https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc_verify-thumbprint.html
 
-# How to use
-
-1. Set your development Stack name
-
-- create .env file and add your setup
+- Run command below to setup Open ID Connect on Cognito Identity Pool
 
 ```
-YOUR_NAME=tomo
-```
-
-- When you deploy your CDK, it will be named as `DevStack${yourname}`
-
-2. Add your external resources & lambda function
-
-```
-export class DevelopmentTemplateStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);
-    // Reference your resouces
-    // See how to reference external resources https://docs.aws.amazon.com/cdk/v2/guide/resources.html
-
-    const s3Bucket = s3.Bucket.fromBucketArn(this, 'MyBucket', 'arn:aws:s3:::my-bucket-name');
-
-    // Set your lambda
-    cont yourLambda = new lambda_nodejs.NodejsFunction(this, "yourlambda", {
-      runtime: lambda.Runtime.NODEJS_16_X,
-      handler: "handler",
-      entry: path.join(`${__dirname}/../`, "functions", "yourlambda/index.ts"),
-      environment: {
-        BUCKET: props.s3Bucket.bucketName,
-      },
-    });
-
-    props.s3Bucket.grantReadWrite(yourLambda);
-
-  }
-}
-```
-
-3. Your lambda
-
-- This project uses yarn 2+ workspace.
-- Add your function under `functions` (e.g. `functions/yourlambda/index.ts`)
-- you need to run `yarn install` at the root of the project so that yarn can recognize your function.
-- If you want add other dependencies, call `yarn init` under `functions/yourlambda` then `yarn add {dependecies you want to add}`
-
-4. Deploy
-
-```
+YOUR_NAME={Your CDK Stack name} \
+AUTH0_CLIENT_ID={Auth0 client id} \
+AUTH0_PROVIDER_URL={provider url  e.g https://{your auth0 app id}.auth0.com}\
+AUTH0_THUMBPRINT={thumbprint}} \
 yarn cdk:deploy
 ```
 
-# Tips
+# Client
 
-### Accessing lambda layer
+- set up your env (see `client/.env.sample` for example)
 
-You can use submodules to access the lambda layer
-
-```
-git submodule add git@github.com:yourproject/main-cdk.git main-cdk
-```
-
-Then add the path in `tsconfig.json`
+- Run command below
 
 ```
-{
-  ...
-      "paths": {
-      "/opt/nodejs/s3": ["main-cdk/functions/layers/awsservice/nodejs/s3"]
-    }
-}
+cd client
+yarn install
+yarn start
 ```
 
-and when you update submodule
+# References
 
-```
-git submodule update --recursive --remote --merge
-```
-
+- General guide
+  - https://auth0.com/docs/customize/integrations/aws/amazon-cognito
