@@ -1,14 +1,26 @@
 This repository showcases Cognito Authentication using Auth0 as OpenID Connect Provider. Built with CDK
 
-- Cognito Identity Pool is used for authorizing access to IAM role based protected API
+- Cognito Identity Pool is used for IAM role based access control. In this PoC, the access token provided by Cognito is used for accessing protected API
 - Client uses amplify-js to authenticate client(passing Auth0 credentials to Cognito) and access protected API. If you prefer other options see [this](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html)
 
 
 https://user-images.githubusercontent.com/6277118/182666081-5d1d8a98-af09-4ef4-b93d-dccf26948901.mov
 
+# Flow
 
+```mermaid
+sequenceDiagram
+    Client->>+Auth0: Authenticate
+    Auth0->>-Client: IdToken(JWT)
+    Client->>+Cognito: Send JWT
+    Note right of Cognito: validate the signature<br /> of JWT  
+    Cognito-->>-Client: Provide access token
+    Client->>+AWS: Request with access token
+    Note over AWS: IAM based Access control
+```
 
-# Backend
+# Setup
+### Backend
 
 - Setup Auth0 account
 - Generate thumbprint from your identity provider (https://your_account.auth0.com)
@@ -25,7 +37,7 @@ AUTH0_THUMBPRINT={thumbprint}} \
 yarn cdk:deploy
 ```
 
-# Client
+### Client
 
 - set up your env (see `client/.env.sample` for example)
 
