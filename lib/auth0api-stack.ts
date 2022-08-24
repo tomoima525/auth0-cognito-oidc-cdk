@@ -5,6 +5,7 @@ import {
   aws_lambda_nodejs as lambda,
   CfnOutput,
 } from "aws-cdk-lib";
+import { RestApi } from "aws-cdk-lib/aws-apigateway";
 
 interface Auth0ApiSetupProps {
   authRole: iam.Role;
@@ -12,10 +13,11 @@ interface Auth0ApiSetupProps {
 }
 
 export class Auth0ApiSetup extends Construct {
+  public readonly api: RestApi;
   constructor(scope: Construct, id: string, props: Auth0ApiSetupProps) {
     super(scope, id);
 
-    const api = new apigateway.RestApi(this, "AuthApi", {
+    this.api = new apigateway.RestApi(this, "AuthApi", {
       restApiName: "Auth0 protected API",
       description: "Protected API",
       deployOptions: {
@@ -36,7 +38,7 @@ export class Auth0ApiSetup extends Construct {
     });
 
     const { helloWorldLambda } = props;
-    const helloWorldResource = api.root.addResource("hello");
+    const helloWorldResource = this.api.root.addResource("hello");
     const helloMethod = helloWorldResource.addMethod(
       "GET",
       new apigateway.LambdaIntegration(helloWorldLambda),
@@ -55,6 +57,5 @@ export class Auth0ApiSetup extends Construct {
         ],
       }),
     );
-    new CfnOutput(this, "Auth0ApiUrl", { value: api.url });
   }
 }
