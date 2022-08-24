@@ -1,9 +1,10 @@
 import { CfnOutput, aws_iam as iam, aws_cognito as cognito } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
-const clientId = process.env.AUTH0_CLIENT_ID as string;
-const providerUrl = process.env.AUTH0_PROVIDER_URL as string;
-const thumbprint = process.env.AUTH0_THUMBPRINT as string;
+// These should be updated based on your project
+const clientId = "4YTAHzEge2bYlERdS0eF5Mq2UlpRXXXX";
+const providerUrl = "https://dev-a-xxxx.us.auth0.com";
+const thumbprint = "B3DD7606D2B5A8B4A13771DBECC9EE1CECAFXXXX";
 export class CognitoSetup extends Construct {
   public readonly identityPool: cognito.CfnIdentityPool;
   public readonly userCognitoGroupRole: iam.Role;

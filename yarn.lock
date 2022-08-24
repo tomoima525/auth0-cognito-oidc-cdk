@@ -6401,9 +6401,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-cdk-lib@npm:2.31.1":
-  version: 2.31.1
-  resolution: "aws-cdk-lib@npm:2.31.1"
+"aws-cdk-lib@npm:2.38.1":
+  version: 2.38.1
+  resolution: "aws-cdk-lib@npm:2.38.1"
   dependencies:
     "@balena/dockerignore": ^1.0.2
     case: 1.6.3
@@ -6416,13 +6416,13 @@ __metadata:
     yaml: 1.10.2
   peerDependencies:
     constructs: ^10.0.0
-  checksum: 25159a21f739d9cb31dde67bc49423f854083186435e3e7a468d7f7d040502a22a3f65a2b5b1ae78ab3ea862bb2779db932ca4c996b1ee4e4c5497fdfe0f8d5c
+  checksum: 2f3f7b15757d768f10d47a6f8b1e62281acfd7d24352dd82719ae3e9a4146479f6830c0be630d2ba97c3dae3e61c0b3d63d5f405ee5dc55e01aa33cac4461e39
   languageName: node
   linkType: hard
 
-"aws-cdk@npm:2.31.1":
-  version: 2.31.1
-  resolution: "aws-cdk@npm:2.31.1"
+"aws-cdk@npm:2.38.1":
+  version: 2.38.1
+  resolution: "aws-cdk@npm:2.38.1"
   dependencies:
     fsevents: 2.3.2
   dependenciesMeta:
@@ -6430,7 +6430,7 @@ __metadata:
       optional: true
   bin:
     cdk: bin/cdk
-  checksum: f0af4da4590929bcf9f20608fb09aab7cfb84014927b9876b80472bc77c9f58020ef6b075e6d2c9b368f6a890ce366329e8d3fe48e2fa19e93d4e645d9a3fd38
+  checksum: 3c0ffe4fbfd266ea5fc4df36f51241e2be6f2f4e9f71def8d7ec4c3eaa19e670095dc300c934c003c3ce1fa800dfce6b7a3492731b2537bfb93b0b356eb25962
   languageName: node
   linkType: hard
 
@@ -7998,8 +7998,8 @@ __metadata:
     "@types/prettier": ^2.6.3
     "@typescript-eslint/eslint-plugin": ^5.30.6
     "@typescript-eslint/parser": ^5.30.6
-    aws-cdk: 2.31.1
-    aws-cdk-lib: 2.31.1
+    aws-cdk: 2.38.1
+    aws-cdk-lib: 2.38.1
     constructs: ^10.0.0
     dotenv: ^16.0.1
     eslint: ^8.19.0
