@@ -53,6 +53,22 @@ yarn cdk bootstrap --profile noxx --cloudformation-execution-policies arn:aws:ia
 yarn cdk deploy --profile={your profile}
 ```
 
+### Testing lambda function locally
+
+- Use SAM CLI. You need to have Docker Container running locally. See how to setup in this article https://medium.com/p/dde95e1d1ffc
+
+After you have your SAM CLI setup, run the command below to generate template file
+
+```
+yarn cdk synth -a "npx ts-node --prefer-ts-exts bin/local-template.ts"
+```
+
+Then run lambda locally with the command below
+
+```
+sam local invoke -t ./cdk.out/AuthTestLocal.template.json helloWorld --profile {your profile} --region us-west-2
+```
+
 ### Client
 
 - set up your env (see `client/.env.sample` for example)
